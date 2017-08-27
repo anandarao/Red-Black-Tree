@@ -5,8 +5,22 @@
 using namespace std;
 
 int main() {
-    RBTree rbTree;
-    Node node(5);
-    cout << node.data ;
+    int data;
+    RBTree rbTree1, rbTree2;
+
+    cin >> data;
+    while (data != 0)
+    {
+        rbTree1.insert(data);
+        cin >> data;
+    }
+
+    cin >> data;
+    while (data != 0)
+    {
+        rbTree2.insert(data);
+        cin >> data;
+    }
+    
     return 0;
 }

@@ -10,7 +10,7 @@ enum Color {RED, BLACK};
 struct Node
 {
     int data;
-    bool color;
+    int color;
     Node *left, *right, *parent;
 
     explicit Node(int);
@@ -21,14 +21,17 @@ class RBTree
     private:
         Node *root;
     protected:
-        void rotateLeft(Node *&, Node *&);
-        void rotateRight(Node *&, Node *&);
-        void fixViolation(Node *&, Node *&);
+        void rotateLeft(Node *&);
+        void rotateRight(Node *&);
+        void fixRBTree(Node *&);
+        void inorderBST(Node *&);
+        void preorderBST(Node *&);
+        Node* insertBST(Node *&, Node *&);
     public:
         RBTree();
-        void insert(const int &n);
+        void insert(int);
         void inorder();
-        void levelOrder();
+        void preorder();
 };
 
 
