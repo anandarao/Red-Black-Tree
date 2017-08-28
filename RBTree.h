@@ -5,7 +5,7 @@
 #ifndef RED_BLACK_TREE_RBTREE_H
 #define RED_BLACK_TREE_RBTREE_H
 
-enum Color {RED, BLACK};
+enum Color {RED, BLACK, DOUBLE_BLACK};
 
 struct Node
 {
@@ -23,13 +23,20 @@ class RBTree
     protected:
         void rotateLeft(Node *&);
         void rotateRight(Node *&);
-        void fixRBTree(Node *&);
+        void fixInsertRBTree(Node *&);
+        void fixDeleteRBTree(Node *&);
         void inorderBST(Node *&);
         void preorderBST(Node *&);
+        int getColor(Node *&);
+        void setColor(Node *&, int);
+        Node *minValueNode(Node *&);
+        Node *maxValueNode(Node *&);
         Node* insertBST(Node *&, Node *&);
+        Node* deleteBST(Node *&, int);
     public:
         RBTree();
-        void insert(int);
+        void insertValue(int);
+        void deleteValue(int);
         void inorder();
         void preorder();
 };

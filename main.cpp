@@ -11,16 +11,20 @@ int main() {
     cin >> data;
     while (data != 0)
     {
-        rbTree1.insert(data);
+        rbTree1.insertValue(data);
         cin >> data;
     }
+
+    rbTree1.preorder();
 
     cin >> data;
     while (data != 0)
     {
-        rbTree2.insert(data);
+        rbTree2.insertValue(data);
         cin >> data;
     }
-    
+
+    rbTree2.preorder();
+
     return 0;
 }
