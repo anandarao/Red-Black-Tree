@@ -33,6 +33,7 @@ class RBTree
         Node *maxValueNode(Node *&);
         Node* insertBST(Node *&, Node *&);
         Node* deleteBST(Node *&, int);
+        int getBlackHeight(Node *);
     public:
         RBTree();
         void insertValue(int);
