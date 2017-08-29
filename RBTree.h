@@ -37,6 +37,7 @@ class RBTree
         RBTree();
         void insertValue(int);
         void deleteValue(int);
+        void merge(RBTree);
         void inorder();
         void preorder();
 };

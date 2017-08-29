@@ -301,3 +301,9 @@ Node* RBTree::maxValueNode(Node *&node) {
 
     return ptr;
 }
+
+void RBTree::merge(RBTree rbTree2) {
+    Node *root1 = root;
+    Node *root2 = rbTree2.root;
+    return;
+}

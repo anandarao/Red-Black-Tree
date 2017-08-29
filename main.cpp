@@ -26,5 +26,7 @@ int main() {
 
     rbTree2.preorder();
 
+    rbTree1.merge(rbTree2);
+
     return 0;
 }
