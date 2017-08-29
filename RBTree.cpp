@@ -335,6 +335,7 @@ void RBTree::merge(RBTree rbTree2) {
         rbTree2.deleteValue(c->data);
         cout << "preorder of t2 just after deleting 20" << endl;
         rbTree2.preorder();
+        // see this
         cout << root2->data << endl;
         cout << "just after deleting from t2 : blackheight1 = " << initialblackheight1 << endl;
         cout << "just after deleting from t2 : blackheight2 = " << getBlackHeight(root2) << endl;
