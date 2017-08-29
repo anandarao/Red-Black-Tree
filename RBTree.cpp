@@ -313,67 +313,81 @@ int RBTree::getBlackHeight(Node *node) {
     return blackheight;
 }
 
+// Test case 1 : 5 2 9 1 6 8 0 20 30 35 40 50 0
+// Test case 2 : 3 0 5 0
+// Test case 3 : 2 1 3 0 8 9 4 5 0
+
 void RBTree::merge(RBTree rbTree2) {
-    Node *c;
+    int temp;
+    Node *c, *temp_ptr;
     Node *root1 = root;
     Node *root2 = rbTree2.root;
     int initialblackheight1 = getBlackHeight(root1);
     int initialblackheight2 = getBlackHeight(root2);
-    cout << "initial blackheight1 = " << initialblackheight1 << endl;
-    cout << "initial blackheight2 = " << initialblackheight2 << endl;
     if (initialblackheight1 > initialblackheight2) {
         c = maxValueNode(root1);
+        temp = c->data;
         deleteValue(c->data);
+        root1 = root;
     }
     else if (initialblackheight2 > initialblackheight1) {
         c = minValueNode(root2);
+        temp = c->data;
         rbTree2.deleteValue(c->data);
+        root2 = rbTree2.root;
     }
     else {
         c = minValueNode(root2);
-        cout << "c = " << c->data << endl;
+        temp = c->data;
         rbTree2.deleteValue(c->data);
-        cout << "preorder of t2 just after deleting 20" << endl;
-        rbTree2.preorder();
-        // see this
-        cout << root2->data << endl;
-        cout << "just after deleting from t2 : blackheight1 = " << initialblackheight1 << endl;
-        cout << "just after deleting from t2 : blackheight2 = " << getBlackHeight(root2) << endl;
+        root2 = rbTree2.root;
         if (initialblackheight1 != getBlackHeight(root2)) {
             rbTree2.insertValue(c->data);
+            root2 = rbTree2.root;
             c = maxValueNode(root1);
+            temp = c->data;
             deleteValue(c->data);
+            root1 = root;
         }
     }
     setColor(c,RED);
     int finalblackheight1 = getBlackHeight(root1);
     int finalblackheight2 = getBlackHeight(root2);
-    //cout << "c = " << c->data << endl;
-    cout << "final blackheight1 = " << finalblackheight1 << endl;
-    cout << "final blackheight2 = " << finalblackheight2 << endl;
     if (finalblackheight1 == finalblackheight2) {
         c->left = root1;
         root1->parent = c;
         c->right = root2;
         root2->parent = c;
         setColor(c,BLACK);
+        c->data = temp;
         root = c;
     }
     else if (finalblackheight2 > finalblackheight1) {
         Node *ptr = root2;
         while (finalblackheight1 != getBlackHeight(ptr)) {
+            temp_ptr = ptr;
             ptr = ptr->left;
         }
-        Node *ptr_parent = ptr->parent;
+        Node *ptr_parent;
+        if (ptr == nullptr)
+            ptr_parent = temp_ptr;
+        else
+            ptr_parent = ptr->parent;
         c->left = root1;
-        root1->parent = c;
+        if (root1 != nullptr)
+            root1->parent = c;
         c->right = ptr;
-        ptr->parent = c;
+        if (ptr != nullptr)
+            ptr->parent = c;
         ptr_parent->left = c;
         c->parent = ptr_parent;
         if (getColor(ptr_parent) == RED) {
-            fixInsertRBTree(root2);
+            fixInsertRBTree(c);
         }
+        else if (getColor(ptr) == RED){
+            fixInsertRBTree(ptr);
+        }
+        c->data = temp;
         root = root2;
     }
     else {
@@ -389,8 +403,12 @@ void RBTree::merge(RBTree rbTree2) {
         ptr_parent->right = c;
         c->parent = ptr_parent;
         if (getColor(ptr_parent) == RED) {
-            fixInsertRBTree(root1);
+            fixInsertRBTree(c);
         }
+        else if (getColor(ptr) == RED) {
+            fixInsertRBTree(ptr);
+        }
+        c->data = temp;
         root = root1;
     }
     return;
